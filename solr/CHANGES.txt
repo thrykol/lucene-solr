@@ -83,6 +83,33 @@ Bug Fixes
 * SOLR-4842: Fix facet.field local params from affecting other facet.field's.
   (ehatcher, hossman) 
 
+* SOLR-4868: Setting the log level for the log4j root category results in
+  adding a new category, the empty string. (Shawn Heisey)
+
+* SOLR-4855: DistributedUpdateProcessor doesn't check for peer sync requests (shalin)
+
+* SOLR-4867: Admin UI - setting loglevel on root throws RangeError (steffkes)
+
+* SOLR-4870: RecentUpdates.update() does not increment numUpdates loop counter
+  (Alexey Kudinov via shalin)
+
+* SOLR-4877, LUCENE-5023: Removed SolrIndexSearcher#getDocSetNC()'s special
+  case for handling TermQuery to prevent NullPointerException if reader does
+  not have fields.  (Bao Yang Yang, Uwe Schindler)
+
+* SOLR-4881: Fix DocumentAnalysisRequestHandler to correctly use
+  EmptyEntityResolver to prevent loading of external entities like
+  UpdateRequestHandler does.  (Hossman, Uwe Schindler)
+
+* SOLR-4858: SolrCore reloading was broken when the UpdateLog
+  was enabled.  (Hossman, Anshum Gupta, Alexey Serba, Mark Miller, yonik)
+
+* SOLR-4853: Fixed SolrJettyTestBase so it may be reused by end users
+  (hossman)
+
+* SOLR-4744: Update failure on sub shard is not propagated to clients by parent
+  shard (Anshum Gupta, yonik, shalin)
+
 Other Changes
 ----------------------
 

@@ -189,6 +189,10 @@ public class UpdateLog implements PluginInfoInitialized {
     defaultSyncLevel = SyncLevel.getSyncLevel((String)info.initArgs.get("syncLevel"));
   }
 
+  /* Note, when this is called, uhandler is not completely constructed.
+   * This must be called when a new log is created, or
+   * for an existing log whenever the core or update handler changes.
+   */
   public void init(UpdateHandler uhandler, SolrCore core) {
     // ulogDir from CoreDescriptor overrides
     String ulogDir = core.getCoreDescriptor().getUlogDir();
@@ -968,6 +972,8 @@ public class UpdateLog implements PluginInfoInitialized {
               log.warn("Exception reverse reading log", ex);
               break;
             }
+
+            numUpdates++;
           }
 
         } catch (IOException e) {

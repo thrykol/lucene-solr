@@ -21,6 +21,11 @@ var frame_element = null;
 var logging_handler = function( response, text_status, xhr )
 {
   var self = this;
+
+	if(typeof response.error !== "undefined") {
+		return self.html('<div class="selector-holder">' + response.error + '</div>' + "\n");
+	}
+
   var loggers = response.loggers;
 
   var levels = '<div class="selector-holder"><div class="selector">' + "\n"
@@ -289,13 +294,6 @@ var load_logging_viewer = function()
       },
       success : function( response, text_status, xhr )
       {
-        var docs = response.history.docs;
-        var docs_count = docs.length;
-
-        var table = $( 'table', frame_element );
-
-        $( 'h2 span', frame_element )
-          .text( response.watcher.esc() );
 
         state
           .html( 'Last Check: ' + format_time() );
@@ -305,6 +303,19 @@ var load_logging_viewer = function()
           load_logging_viewer,
           10000
         );
+
+				if(typeof response.error !== "undefined") {
+					state.append('<div>' + response.error + '</div>' + "\n");
+					return false;
+				}
+
+        var docs = response.history.docs;
+        var docs_count = docs.length;
+
+        var table = $( 'table', frame_element );
+
+        $( 'h2 span', frame_element )
+          .text( response.watcher.esc() );
 
         if( 0 === docs_count )
         {
